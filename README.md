@@ -29,5 +29,12 @@ fetch(url, init);
 改成
 let init = {method: method, body: params};
 let request = new Request(url, init);
+fetch(request)
+```
+- Xcode 一直打印 __nw_connection_get_connected_socket_block_invoke 161 Connection has no connected handler [连接](https://github.com/facebook/react-native/issues/10027)
 
+```
+1、Xcode menu -> Product -> Edit Scheme...
+2、Environment Variables -> Add -> Name: "OS_ACTIVITY_MODE", Value:"disable"
+3、Run your app again,
 ```

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { Heading1, Button } from '../../common';
+import { Heading1, Button } from '../common';
 
 class UserListItem extends React.Component {
 	render() {

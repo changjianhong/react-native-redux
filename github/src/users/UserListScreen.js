@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import UserActions from '../actions';
+import Actions from '../action/actions';
 import UserListItem from './UserListItem';
 
 const key = 1;
@@ -68,7 +68,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getUsers: UserActions.getUsers(dispatch)
+		getUsers: Actions.getUsers(dispatch)
 	};
 }
 

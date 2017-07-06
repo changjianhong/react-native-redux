@@ -1,7 +1,7 @@
 import React from 'react';
 import {router} from '../common';
 import MineScreen from '../mine/MineScreen';
-import UserListScreen from '../users/views/UserListScreen';
+import UserListScreen from '../users/UserListScreen';
 import {TabNavigator, StackNavigator, TabBarBottom} from 'react-navigation';
 
 class RootScreen extends React.Component {

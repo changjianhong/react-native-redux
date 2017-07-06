@@ -1,4 +1,4 @@
-import UserActions from './actions';
+import UserActions from '../action/actions';
 
 const reducer = (state = {user: []}, action) => {
 	console.log(action.type);

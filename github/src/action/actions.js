@@ -1,4 +1,4 @@
-import Action from '../action/baseAction';
+import Action from './baseAction';
 import Service from '../service/Service';
 
 export default new Action([
