@@ -5,8 +5,9 @@ import { Heading1, Button } from '../common';
 class UserListItem extends React.Component {
 	render() {
 		const {login, avatar_url} = this.props.data;
+		const {onPress} = this.props;
 		return (
-				<TouchableOpacity style={styles.container}>
+				<TouchableOpacity style={styles.container} onPress={onPress}>
 					<Image source={{uri: avatar_url}}
 					style={styles.icon} />
 					<View style={styles.rightContainer}>

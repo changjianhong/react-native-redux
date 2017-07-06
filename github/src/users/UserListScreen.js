@@ -30,7 +30,10 @@ class UserListScreen extends React.Component {
 
 	_renderItem = ({item}) => {
 		return (
-			<UserListItem data={item}/>
+			<UserListItem
+				data={item}
+				onPress = {() => this.props.navigation.navigate('UserDetail')}
+			/>
 		)
 	}
 

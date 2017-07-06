@@ -13,7 +13,7 @@ class RootScreen extends React.Component {
 const Tab = TabNavigator({
 	users: {
 		screen: UserListScreen,
-		navigationOptions: () => ({
+		navigationOptions: ({navigation}) => ({
 			tabBarLabel: '用户'
 		})
 	},
@@ -39,7 +39,8 @@ const Tab = TabNavigator({
 });
 
 const Navigator = StackNavigator({
-	Tab: {screen: Tab}
+	Tab: {screen: Tab},
+	...router
 }, {
 	navigationOptions: {
 		headerBackTitle: null,
