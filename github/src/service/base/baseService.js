@@ -1,25 +1,20 @@
 
 class BaseService {
 
-	joinUrl({url, params}) {
-		let urlObject = new URL(url);
-		if (params) {
-			Object.keys(params).forEach(key => urlObject.searchParams.append(key, params[key]));
-		}
-		return urlObject.href;
+	joinRequest({url, params, method}) {
+		let init = {method: method, body: params};
+		let request = new Request(url, init);
+		return request;
 	}
 
-	async fetchApi({method, ...obj}) {
-		let init = {
-			method: method,
-		};
-		let url = this.joinUrl(obj);
+	async fetchApi(args) {
+		let request = this.joinRequest(args);
 		try {
-			let response = await fetch(url, init);
+			let response = await fetch(request);
 			let data = response.json();
 			return data;
 		} catch (e) {
-			console.log(e);
+			console.log('fdafasfads');
 			return Promise.reject(e);
 		}
 	}
