@@ -1,9 +1,17 @@
 
 class BaseService {
 
-	joinRequest({url, params, method}) {
+	joinRequest({url, params, method, path}) {
 		let init = {method: method, body: params};
-		let request = new Request(url, init);
+		let newUrl = url;
+		if (path && typeof path =='object') {
+			Object.keys(path).forEach((key) => {
+				let placeholder = ':' + key;
+				newUrl = newUrl.replace(/:name/, path[key]);
+			});
+		}
+		console.log(newUrl);
+		let request = new Request(newUrl, init);
 		return request;
 	}
 

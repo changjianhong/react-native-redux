@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import Actions from '../action/actions';
+import userActions from '../action/userActions';
 import UserListItem from './UserListItem';
 
 const key = 1;
@@ -60,7 +60,7 @@ class UserListScreen extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	let userData = state;
+	let userData = state.user;
 	return {
 		users: userData.users,
 	};
@@ -68,7 +68,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getUsers: Actions.getUsers(dispatch)
+		getUsers: userActions.getUsers(dispatch)
 	};
 }
 

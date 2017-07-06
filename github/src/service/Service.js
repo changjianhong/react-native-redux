@@ -5,4 +5,9 @@ export default class Service extends BaseService {
 	getUsers() {
 		return super.fetchApi({method:'GET', url:urls.users.getUsers});
 	}
+
+	getUser(path) {
+		return super.fetchApi({method:'GET', url:urls.users.getUser, path:path});
+	}
+
 }
