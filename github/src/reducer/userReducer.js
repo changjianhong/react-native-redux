@@ -1,21 +1,31 @@
 import { combineReducers } from 'redux'
 import UserActions from '../action/userActions';
 
-/*
+/**
 {
 	user:{
-		users: [],
+		users: {
+			refreshing:bool
+			users:[]
+		}
 		user: {}
 	}
 }
 */
 
-const users = (state = null, action) => {
+
+const users = (state = {}, action) => {
 	console.log(action.type);
 	switch(action.type) {
+		case UserActions.GET_USERS_BEFORE: {
+			return {...state, refreshing: true};
+		}
 		case UserActions.GET_USERS: {
-			let users = action.data;
+			let users = {...state, refreshing: false, users:action.data};
 			return users;
+		}
+		case UserActions.GET_USERS_FAILURE: {
+			return {...state, refreshing: false}
 		}
 		default: {
 			return state;

@@ -12,16 +12,17 @@ class UserListScreen extends React.Component {
 	}
 
 	static propTypes = {
-		users: React.PropTypes.array
+		users: React.PropTypes.array,
+		refreshing: React.PropTypes.bool
 	}
 
 	static defaultProps = {
 		users: [],
+		refreshing: false
 	}
 
 	constructor(props) {
 		super(props);
-		this.state = {refreshing: false};
 	}
 
 	_keyExtractor = (item, index) => {
@@ -38,10 +39,7 @@ class UserListScreen extends React.Component {
 	}
 
 	_refresh = () => {
-		this.setState({refreshing: true});
-		this.props.getUsers().then(() => {
-			this.setState({refreshing: false});
-		});
+		this.props.getUsers();
 	}
 
 	render() {
@@ -52,7 +50,7 @@ class UserListScreen extends React.Component {
 				keyExtractor={this._keyExtractor}
 				renderItem={this._renderItem}
 				onRefresh = {this._refresh}
-				refreshing = {this.state.refreshing}
+				refreshing = {this.props.refreshing}
 			/>
 		)
 	}
@@ -63,9 +61,11 @@ class UserListScreen extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	let userData = state.user;
+	let usersData = state.user.users;
+	console.log(usersData.refreshing);
 	return {
-		users: userData.users,
+		users: usersData.users,
+		refreshing: usersData.refreshing
 	};
 }
 

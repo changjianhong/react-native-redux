@@ -22,6 +22,11 @@ class MineScreen extends React.Component {
 
 }
 
+
+
+
+
+
 const mapStateToProps = (state) => {
 	let userData = state.user;
 	return {
