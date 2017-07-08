@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { Heading1, Button } from '../common';
+import { Heading1 } from '../components/Text';
+import Button from 'apsl-react-native-button';
 
 class UserListItem extends React.Component {
 	render() {

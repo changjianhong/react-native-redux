@@ -1,7 +1,5 @@
 import React from 'react';
 import {router} from '../common';
-import MineScreen from '../mine/MineScreen';
-import UserListScreen from '../users/UserListScreen';
 import {TabNavigator, StackNavigator, TabBarBottom} from 'react-navigation';
 
 class RootScreen extends React.Component {
@@ -12,13 +10,19 @@ class RootScreen extends React.Component {
 
 const Tab = TabNavigator({
 	users: {
-		screen: UserListScreen,
+		...router.userListScreen,
 		navigationOptions: ({navigation}) => ({
 			tabBarLabel: '用户'
 		})
 	},
+	search: {
+		...router.searchReposScreen,
+		navigationOptions: () => ({
+			tabBarLabel: '搜索'
+		})
+	},
 	mine: {
-		screen: MineScreen,
+		...router.mineScreen,
 		navigationOptions: () => ({
 			tabBarLabel: '我的'
 		})

@@ -38,3 +38,11 @@ fetch(request)
 2、Environment Variables -> Add -> Name: "OS_ACTIVITY_MODE", Value:"disable"
 3、Run your app again,
 ```
+
+- import 问题
+
+```
+import {screen} from './common' //在StyleSheet中screen==undefined
+import screen from './common/screen'
+
+```

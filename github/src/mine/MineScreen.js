@@ -2,11 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Text } from 'react-native';
 import Actions from '../action/userActions';
+import { color } from '../common';
+import NavigationItem from '../components/NavigationItem';
 
 class MineScreen extends React.Component {
-	static navigationOptions = {
-		headerTitle: '个人详情'
-	}
+	static navigationOptions = ({navigation}) => ({
+		headerTitle: '个人详情',
+		headerStyle: {backgroundColor: color.pumpkin},
+		headerRight: (
+      <NavigationItem
+        title='+'
+        onPress = {() => {
+          console.log(this);
+          navigation.navigate('searchReposScreen');
+        }}
+      />
+    )
+	})
+
 	render() {
 		const {login} = this.props.user;
 		return (
@@ -21,11 +34,6 @@ class MineScreen extends React.Component {
 	}
 
 }
-
-
-
-
-
 
 const mapStateToProps = (state) => {
 	let userData = state.user;

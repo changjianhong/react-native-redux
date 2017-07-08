@@ -33,7 +33,7 @@ class UserListScreen extends React.Component {
 		return (
 			<UserListItem
 				data={item}
-				onPress = {() => this.props.navigation.navigate('UserDetail')}
+				onPress = {() => this.props.navigation.navigate('userDetailScreen')}
 			/>
 		)
 	}
