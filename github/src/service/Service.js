@@ -10,4 +10,7 @@ export default class Service extends BaseService {
 		return super.fetchApi({method:'GET', url:urls.users.getUser, path:path});
 	}
 
+	getRepos(key) {
+		return super.fetchApi({method:'GET', url:urls.repos.getRepos, params:{q:key}})
+	}
 }

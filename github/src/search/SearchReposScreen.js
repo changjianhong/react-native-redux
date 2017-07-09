@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import SearchBar from '../components/SearchBar';
+import reposActions from '../action/searchRepoActions';
 
 class SearchReposScreen extends React.Component {
 
@@ -22,13 +23,15 @@ class SearchReposScreen extends React.Component {
 
 	constructor(props) {
 		super(props);
-		signal = this.searchBarDidChange;
+		signal = this.searchBarDidChange.bind(this);
 	}
 
 	searchBarDidChange(text) {
 		console.log(text);
+		this.props.getRepos(text).then((json) => {
+			console.log(json);
+		});
 	}
-
 
 	render() {
 		return (
@@ -54,7 +57,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-
+		getRepos: reposActions.getRepos(dispatch)
 	}
 }
 
