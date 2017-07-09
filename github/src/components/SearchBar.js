@@ -1,15 +1,17 @@
 import React from 'react';
 import screen from '../common/screen';
+import color from '../common/color';
 import { View, Image, TextInput, StyleSheet, LayoutAnimation, NativeModules } from 'react-native';
 import Button from 'apsl-react-native-button';
 
 const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+const linear = LayoutAnimation.create(200, LayoutAnimation.Types.linear, LayoutAnimation.Properties.opacity);
 
 const searchBarAnimatedState = {
   inputWidth: screen.width - 68,
-  cancelBtnTextColor: 'red',
+  cancelBtnTextColor: color.pumpkin,
   iconMarginLeft: - screen.width / 2 + 22,
   selectionColor: 'black'
 }
@@ -22,13 +24,17 @@ const searchBarNoAnimatedState = {
 }
 
 class SearchBar extends React.Component {
+
+  static propTypes = {
+    onChangeText: React.PropTypes.func
+  }
+
 	constructor(props) {
 		super(props);
 		this.state = {...searchBarNoAnimatedState}
 	}
 
 	_onFocus = () => {
-    let linear = LayoutAnimation.create(200, LayoutAnimation.Types.linear, LayoutAnimation.Properties.opacity);
     LayoutAnimation.configureNext.bind(null, linear, () => {
       this.setState({
         selectionColor: searchBarAnimatedState.selectionColor
@@ -39,17 +45,13 @@ class SearchBar extends React.Component {
 
   _onBlur = () => {
     console.log('onBlur');
-    let linear = LayoutAnimation.create(200, LayoutAnimation.Types.linear, LayoutAnimation.Properties.opacity);
-    LayoutAnimation.configureNext.bind(null, linear, () => {
-      this.setState({
-        cancelBtnTextColor: searchBarNoAnimatedState.cancelBtnTextColor
-      });
-    })();
-    this.setState({...searchBarNoAnimatedState, ...{cancelBtnTextColor: searchBarAnimatedState.cancelBtnTextColor}});
+    LayoutAnimation.configureNext.bind(null, linear)();
+    this.setState({...searchBarNoAnimatedState});
   }
 
   _cancelBtnDidClicked = () => {
     console.log('_cancelBtnDidClicked');
+    this._textInput.clear();
     this._textInput.blur();
   }
 
@@ -61,9 +63,9 @@ class SearchBar extends React.Component {
           selectionColor = {this.state.selectionColor}
 					onFocus = {this._onFocus}
           onBlur = {this._onBlur}
-					style={[styles.textInput, {width: this.state.inputWidth}]}
-					placeholder = '搜索'
-					placeholderTextColor = 'red'
+          onChangeText = {this.props.onChangeText}
+          style={[styles.textInput, {width: this.state.inputWidth}]}
+
 				/>
 				<Button style={[styles.button]} textStyle={[styles.buttonTextStyle, {color: this.state.cancelBtnTextColor}]} onPress={this._cancelBtnDidClicked}>取消</Button>
         <Image source={require('../img/search.png')} style={[styles.icon, {marginLeft: this.state.iconMarginLeft}]}/>
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: screen.width,
 		flexDirection: 'row',
-		backgroundColor :'blue'
+		backgroundColor :'white'
 	},
 	textInput: {
 		height: 28,
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
 		borderColor: 'transparent',
 		borderWidth: 1,
 		borderRadius: 4,
-		backgroundColor: 'red',
+		backgroundColor: color.palegrey,
     paddingLeft: 18,
     fontSize: 14
 	},
