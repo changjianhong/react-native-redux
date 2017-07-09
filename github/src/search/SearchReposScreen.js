@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import reposActions from '../action/searchRepoActions';
 
 class SearchReposScreen extends React.Component {
 
 	static propTypes = {
-
+		repos: React.PropTypes.array
 	}
 
 	static defaultProps = {
-
+		repos: []
 	}
 
 	static navigationOptions = ({navigation}) => ({
@@ -28,14 +28,19 @@ class SearchReposScreen extends React.Component {
 
 	searchBarDidChange(text) {
 		console.log(text);
-		this.props.getRepos(text).then((json) => {
-			console.log(json);
-		});
+		this.props.getRepos(text);
 	}
 
 	render() {
+		const {repos} = this.props;
+		console.log(repos);
 		return (
-			<View></View>
+			<View>
+				{repos.map((item, index) => {
+					console.log(index);
+					return (<Text key={index}>{item.description}</Text>)
+				})}
+			</View>
 		)
 	}
 }
@@ -50,8 +55,9 @@ const searchBarDidChange = (text) => {
 
 
 const mapStateToProps = (state) => {
+	let reposData = state.repos;
 	return {
-
+		repos: reposData && reposData.repos.items
 	}
 }
 

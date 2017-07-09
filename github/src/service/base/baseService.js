@@ -1,7 +1,8 @@
 
 const joinQuery = (url, params) => {
 	let newUrl = url;
-	if (params && typeof params == 'Object') {
+
+	if (params && typeof params == 'object') {
 		Object.keys(params).forEach((key, index) => {
 			let sign = index == 0 ? '?' : '&';
 			newUrl = newUrl + sign + key + '=' + params[key];
@@ -39,7 +40,7 @@ class BaseService {
 			let data = response.json();
 			return data;
 		} catch (e) {
-			console.log('fdafasfads');
+			console.log(e);
 			return Promise.reject(e);
 		}
 	}
