@@ -7,9 +7,10 @@ class SearchRoposItem extends React.Component {
 
 	render() {
 		const {full_name, language, stargazers_count, description, updated_at} = this.props.data;
+		const onPress = this.props.onPress;
 		let starsCount = standardCount(stargazers_count);
 		return (
-			<TouchableOpacity style={styles.container}>
+			<TouchableOpacity style={styles.container} onPress={onPress}>
 				<View style={styles.contentContainer}>
 					<View style={styles.top}>
 						<Text style={styles.name}>{full_name}</Text>

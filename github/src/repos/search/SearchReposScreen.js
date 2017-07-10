@@ -48,7 +48,7 @@ class SearchReposScreen extends React.Component {
 		return (
 			<SearchRoposItem
 				data = {item}
-				onPress = {() => {this.props.navigation.navigate('')}}
+				onPress = {() => {this.props.navigation.navigate('webViewScreen', {uri: item.html_url})}}
 			/>
 		)
 	}
