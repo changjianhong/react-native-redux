@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import color from '../common/color';
-import screen from '../common/screen';
-import {standardCount} from '../common/count';
+import color from '../../common/color';
+import {standardCount} from '../../common/count';
 
 class SearchRoposItem extends React.Component {
 

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 		margin: 8
 	},
 	title: {
-		fontSize: 28,
+		fontSize: 14,
 		color: '#333333',
 		margin: 8
 	}

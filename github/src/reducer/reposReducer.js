@@ -1,16 +1,33 @@
 import { combineReducers } from 'redux'
 import ReposActions from '../action/searchRepoActions';
 
-const repos = (state = {}, action) => {
+const reactNativeRepos = (state = {}, action) => {
 	switch (action.type) {
-		case ReposActions.GET_REPOS_BEFORE: {
+		case ReposActions.GET_REACT_NATIVE_REPOS_BEFORE: {
 			return {...state, refreshing: true};
 		}
-		case ReposActions.GET_REPOS: {
+		case ReposActions.GET_REACT_NATIVE_REPOS: {
 			console.log(action.data);
 			return {...state, refreshing: false, repos:action.data};
 		}
-		case ReposActions.GET_REPOS_FAILURE: {
+		case ReposActions.GET_REACT_NATIVE_REPOS_BEFORE_FAILURE: {
+			return {...state, refreshing: false}
+		}
+		default:
+			return state;
+	}
+}
+
+const searchRepos = (state = {}, action) => {
+	switch (action.type) {
+		case ReposActions.SEARCH_REPOS_BEFORE: {
+			return {...state, refreshing: true};
+		}
+		case ReposActions.SEARCH_REPOS: {
+			console.log(action.data);
+			return {...state, refreshing: false, repos:action.data};
+		}
+		case ReposActions.SEARCH_REPOS_FAILURE: {
 			return {...state, refreshing: false}
 		}
 		default:
@@ -19,7 +36,8 @@ const repos = (state = {}, action) => {
 }
 
 const multiUserReducer = combineReducers({
-	repos
+	reactNativeRepos,
+	searchRepos
 });
 
 export default {['repos']: multiUserReducer};

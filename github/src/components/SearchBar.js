@@ -7,20 +7,22 @@ import Button from 'apsl-react-native-button';
 const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-const linear = LayoutAnimation.create(200, LayoutAnimation.Types.linear, LayoutAnimation.Properties.opacity);
+const linear = LayoutAnimation.create(200, LayoutAnimation.Types.linear, LayoutAnimation.Properties.scaleXY);
 
 const searchBarAnimatedState = {
   inputWidth: screen.width - 68,
   cancelBtnTextColor: color.pumpkin,
   iconMarginLeft: - screen.width / 2 + 22,
-  selectionColor: 'black'
+  selectionColor: 'black',
+  placeholderWidth: 1
 }
 
 const searchBarNoAnimatedState = {
   inputWidth: screen.width - 40,
   cancelBtnTextColor: 'transparent',
   iconMarginLeft: -7,
-  selectionColor: 'transparent'
+  selectionColor: 'transparent',
+  placeholderWidth: 0
 }
 
 class SearchBar extends React.Component {
@@ -28,12 +30,13 @@ class SearchBar extends React.Component {
   static propTypes = {
     onChangeText: React.PropTypes.func,
     onSubmitEditing: React.PropTypes.func,
-    onEndEditing: React.PropTypes.func
+    onEndEditing: React.PropTypes.func,
+    cancelBtnDidClick: React.PropTypes.func
   }
 
 	constructor(props) {
 		super(props);
-		this.state = {...searchBarNoAnimatedState}
+		this.state = {...searchBarNoAnimatedState};
 	}
 
 	_onFocus = () => {
@@ -46,10 +49,14 @@ class SearchBar extends React.Component {
 	}
 
   _onBlur = (event) => {
-
+    console.log('_onBlur');
   }
 
   _cancelBtnDidClicked = () => {
+    if (this.props.cancelBtnDidClick) {
+      this.props.cancelBtnDidClick();
+      return;
+    }
     this._textInput.clear();
     this._textInput.blur();
     LayoutAnimation.configureNext.bind(null, linear)();
@@ -60,6 +67,10 @@ class SearchBar extends React.Component {
     let text = event.nativeEvent.text;
     if (this.props.onSubmitEditing) {
       this.props.onSubmitEditing(text);
+      this.setState({
+        selectionColor: 'transparent',
+        placeholderWidth: 0
+      });
     }
   }
 
@@ -74,13 +85,11 @@ class SearchBar extends React.Component {
           onChangeText = {this.props.onChangeText}
           onSubmitEditing = {this._onSubmitEditing}
           onEndEditing = {this.props.onEndEditing}
-          // blurOnSubmit = {false}
           style={[styles.textInput, {width: this.state.inputWidth}]}
-
 				/>
 				<Button style={[styles.button]} textStyle={[styles.buttonTextStyle, {color: this.state.cancelBtnTextColor}]} onPress={this._cancelBtnDidClicked}>取消</Button>
         <Image source={require('../img/search.png')} style={[styles.icon, {marginLeft: this.state.iconMarginLeft}]}/>
-
+        <View style={{width: this.state.placeholderWidth}}></View>
 			</View>
 		)
 	}

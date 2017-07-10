@@ -15,10 +15,10 @@ const Tab = TabNavigator({
 			tabBarLabel: '用户'
 		})
 	},
-	search: {
-		...router.searchReposScreen,
+	repos: {
+		...router.reposScreen,
 		navigationOptions: () => ({
-			tabBarLabel: '搜索'
+			tabBarLabel: '仓库'
 		})
 	},
 	mine: {

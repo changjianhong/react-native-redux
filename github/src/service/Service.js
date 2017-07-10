@@ -10,7 +10,11 @@ export default class Service extends BaseService {
 		return super.fetchApi({method:'GET', url:urls.users.getUser, path:path});
 	}
 
-	getRepos(key) {
+	getReactNativeRepos() {
+		return this.searchRepos('react-native');
+	}
+
+	searchRepos(key) {
 		return super.fetchApi({method:'GET', url:urls.repos.getRepos, params:{q:key}})
 	}
 }

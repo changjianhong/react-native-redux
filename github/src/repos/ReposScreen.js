@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SearchRoposItem from './SearchReposItem';
+import SearchRoposItem from './search/SearchReposItem';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
-import SearchBar from '../components/SearchBar';
 import reposActions from '../action/searchRepoActions';
+import NavigationItem from '../components/NavigationItem';
 
-class SearchReposScreen extends React.Component {
+class ReposScreen extends React.Component {
 
 	static propTypes = {
 		repos: React.PropTypes.array
@@ -16,26 +16,18 @@ class SearchReposScreen extends React.Component {
 	}
 
 	static navigationOptions = ({navigation}) => ({
+		headerTitle: 'react native',
 		headerStyle: {backgroundColor: 'white'},
 		headerRight: (
-			<SearchBar
-				onSubmitEditing={searchBarSubmitEditing}
+			<NavigationItem
+				title =  {'搜索'}
+				onPress = {() => {navigation.navigate('searchReposScreen')}}
 			/>
 		)
 	});
 
-	constructor(props) {
-		super(props);
-		signal = this.searchBarSubmitEditing.bind(this);
-	}
-
 	componentDidMount() {
-		this.props.getRepos('react-native');
-	}
-
-	searchBarSubmitEditing(text) {
-		console.log(text);
-		this.props.getRepos(text);
+		this.props.getRepos();
 	}
 
 	_keyExtractor = (item) => {
@@ -83,15 +75,9 @@ const styles = StyleSheet.create({
   },
 })
 
-let signal;
-const searchBarSubmitEditing = (text) => {
-	if (signal && typeof signal == 'function') {
-		signal(text);
-	}
-}
 
 const mapStateToProps = (state) => {
-	let reposData = state.repos.repos;
+	let reposData = state.repos.reactNativeRepos;
 	console.log(reposData && reposData.refreshing);
 	return {
 		repos: reposData.repos && reposData.repos.items,
@@ -101,8 +87,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getRepos: reposActions.getRepos(dispatch)
+		getRepos: reposActions.getReactNativeRepos(dispatch)
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchReposScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ReposScreen);
