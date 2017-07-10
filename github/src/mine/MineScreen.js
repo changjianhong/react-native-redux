@@ -14,7 +14,7 @@ class MineScreen extends React.Component {
         title='+'
         onPress = {() => {
           console.log(this);
-          navigation.navigate('searchReposScreen');
+          navigation.navigate('');
         }}
       />
     )
