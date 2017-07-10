@@ -26,7 +26,9 @@ const searchBarNoAnimatedState = {
 class SearchBar extends React.Component {
 
   static propTypes = {
-    onChangeText: React.PropTypes.func
+    onChangeText: React.PropTypes.func,
+    onSubmitEditing: React.PropTypes.func,
+    onEndEditing: React.PropTypes.func
   }
 
 	constructor(props) {
@@ -43,16 +45,22 @@ class SearchBar extends React.Component {
     this.setState({...searchBarAnimatedState, ...{selectionColor: searchBarNoAnimatedState.selectionColor}});
 	}
 
-  _onBlur = () => {
-    console.log('onBlur');
+  _onBlur = (event) => {
+
+  }
+
+  _cancelBtnDidClicked = () => {
+    this._textInput.clear();
+    this._textInput.blur();
     LayoutAnimation.configureNext.bind(null, linear)();
     this.setState({...searchBarNoAnimatedState});
   }
 
-  _cancelBtnDidClicked = () => {
-    console.log('_cancelBtnDidClicked');
-    this._textInput.clear();
-    this._textInput.blur();
+  _onSubmitEditing = (event) => {
+    let text = event.nativeEvent.text;
+    if (this.props.onSubmitEditing) {
+      this.props.onSubmitEditing(text);
+    }
   }
 
 	render() {
@@ -64,6 +72,9 @@ class SearchBar extends React.Component {
 					onFocus = {this._onFocus}
           onBlur = {this._onBlur}
           onChangeText = {this.props.onChangeText}
+          onSubmitEditing = {this._onSubmitEditing}
+          onEndEditing = {this.props.onEndEditing}
+          // blurOnSubmit = {false}
           style={[styles.textInput, {width: this.state.inputWidth}]}
 
 				/>
